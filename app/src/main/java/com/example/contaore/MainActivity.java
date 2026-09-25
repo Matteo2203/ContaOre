@@ -1,6 +1,8 @@
 package com.example.contaore;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.widget.Button;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -37,5 +39,11 @@ public class MainActivity extends AppCompatActivity {
                 recyclerView.setAdapter(adapter);
             });
         }).start();
+
+        Button btnAggiungi = findViewById(R.id.btnAggiungi);
+        btnAggiungi.setOnClickListener(v -> {
+            Intent intent = new Intent(MainActivity.this, AddEntryActivity.class);
+            startActivity(intent);
+        });
     }
 }
