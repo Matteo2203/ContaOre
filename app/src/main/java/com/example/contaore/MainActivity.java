@@ -7,6 +7,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.contaore.data.AppDatabase;
+import com.example.contaore.data.WeekEntry;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -20,5 +26,16 @@ public class MainActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+        RecyclerView recyclerView = findViewById(R.id.recyclerView);
+        AppDatabase db = AppDatabase.getInstance(getApplicationContext());
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        new Thread(() -> {
+            List<WeekEntry> lista = db.weekEntryDao().getAllEntries();
+
+            runOnUiThread(() -> {
+                WeekAdapter adapter = new WeekAdapter(lista);
+                recyclerView.setAdapter(adapter);
+            });
+        }).start();
     }
 }

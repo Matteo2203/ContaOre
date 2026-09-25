@@ -12,7 +12,7 @@ public abstract class AppDatabase extends RoomDatabase {
     public abstract  WeekEntryDao weekEntryDao();
     static AppDatabase i;
 
-    static AppDatabase getInstance(Context context){
+    public static AppDatabase getInstance(Context context){
         if(i == null)
             i = Room.databaseBuilder(context, AppDatabase.class , "orari").build();
 
