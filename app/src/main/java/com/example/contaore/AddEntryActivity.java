@@ -3,6 +3,7 @@ package com.example.contaore;
 import android.net.Uri;
 import android.os.Bundle;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 
 import androidx.activity.EdgeToEdge;
@@ -13,6 +14,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.room.Dao;
+
+import com.example.contaore.data.AppDatabase;
+import com.example.contaore.data.WeekEntry;
+import com.example.contaore.data.WeekEntryDao;
 
 public class AddEntryActivity extends AppCompatActivity {
 
@@ -34,6 +40,30 @@ public class AddEntryActivity extends AppCompatActivity {
                     .setMediaType(ActivityResultContracts.PickVisualMedia.ImageOnly.INSTANCE)
                     .build());
         });
+
+        Button btnSave = findViewById(R.id.btnSave);
+        EditText etOre = findViewById(R.id.etOre);
+
+        btnSave.setOnClickListener(v -> {
+            String testoOre = etOre.getText().toString();
+            double ore = Double.parseDouble(testoOre);
+            WeekEntry i = new WeekEntry();
+            i.setOre(ore);
+            i.setPercorsoImmagine(immagineSelezionata.toString());
+            i.setData("da definire");
+            Thread t = new Thread(() ->{
+                AppDatabase db = AppDatabase.getInstance(getApplicationContext());
+                WeekEntryDao d = db.weekEntryDao();
+                d.inserisci(i);
+
+                runOnUiThread(() -> {
+                    finish();
+                });
+
+            });
+            t.start();
+        });
+
     }
     ImageView ivPreview;
     Uri immagineSelezionata;
