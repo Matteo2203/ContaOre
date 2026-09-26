@@ -1,5 +1,6 @@
 package com.example.contaore;
 
+import android.net.Uri;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -35,10 +36,13 @@ public class AddEntryActivity extends AppCompatActivity {
         });
     }
     ImageView ivPreview;
+    Uri immagineSelezionata;
     ActivityResultLauncher<PickVisualMediaRequest> pickMedia =
             registerForActivityResult(new ActivityResultContracts.PickVisualMedia(), uri -> {
                 if (uri != null) {
                     ivPreview.setImageURI(uri);
+                    ivPreview.setImageURI(uri);
+                    immagineSelezionata = uri;
                 }
             });
 }
