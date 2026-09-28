@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.activity.result.ActivityResultLauncher;
@@ -52,10 +53,30 @@ public class AddEntryActivity extends AppCompatActivity {
 
         btnSave.setOnClickListener(v -> {
             String testoOre = etOre.getText().toString();
-            double ore = Double.parseDouble(testoOre);
+            if(testoOre.trim().isEmpty()){
+                AddEntryActivity contesto = AddEntryActivity.this;
+                Toast.makeText(contesto, "INSERISCI LE ORE", Toast.LENGTH_SHORT).show();
+                return;
+            }
+            if(immagineSelezionata == null){
+                AddEntryActivity contesto = AddEntryActivity.this;
+                Toast.makeText(contesto, "INSERISCI L'IMMAGINE", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            double ore = 0;
+            try {
+                ore = Double.parseDouble(testoOre);
+            } catch (NumberFormatException e) {
+                AddEntryActivity contesto = AddEntryActivity.this;
+                Toast.makeText(contesto, "ORE NON VALIDE", Toast.LENGTH_SHORT).show();
+                return;
+
+            }
             WeekEntry i = new WeekEntry();
             i.setOre(ore);
             i.setData("da definire");
+
             Thread t = new Thread(() ->{
                 File destinazione = null;
                 try {
