@@ -20,6 +20,12 @@ import com.example.contaore.data.AppDatabase;
 import com.example.contaore.data.WeekEntry;
 import com.example.contaore.data.WeekEntryDao;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+
 public class AddEntryActivity extends AppCompatActivity {
 
     @Override
@@ -49,9 +55,27 @@ public class AddEntryActivity extends AppCompatActivity {
             double ore = Double.parseDouble(testoOre);
             WeekEntry i = new WeekEntry();
             i.setOre(ore);
-            i.setPercorsoImmagine(immagineSelezionata.toString());
             i.setData("da definire");
             Thread t = new Thread(() ->{
+                File destinazione = null;
+                try {
+                    InputStream in = getContentResolver().openInputStream(immagineSelezionata);
+                    String name = System.currentTimeMillis() + ".jpg";
+                    destinazione = new File(getFilesDir(), name);
+                    OutputStream out = new FileOutputStream(destinazione);
+                    byte[] buffer = new byte[1024];
+                    int letti;
+                    while ((letti = in.read(buffer)) != -1){
+                        out.write(buffer, 0, letti);
+                    }
+                    in.close();
+                    out.close();
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+                i.setPercorsoImmagine(destinazione.getAbsolutePath());
+
+
                 AppDatabase db = AppDatabase.getInstance(getApplicationContext());
                 WeekEntryDao d = db.weekEntryDao();
                 d.inserisci(i);

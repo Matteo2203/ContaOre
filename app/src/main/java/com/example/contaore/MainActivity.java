@@ -18,6 +18,9 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
+    RecyclerView recyclerView;
+    AppDatabase db;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,22 +31,33 @@ public class MainActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
-        RecyclerView recyclerView = findViewById(R.id.recyclerView);
-        AppDatabase db = AppDatabase.getInstance(getApplicationContext());
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        new Thread(() -> {
-            List<WeekEntry> lista = db.weekEntryDao().getAllEntries();
-
-            runOnUiThread(() -> {
-                WeekAdapter adapter = new WeekAdapter(lista);
-                recyclerView.setAdapter(adapter);
-            });
-        }).start();
-
         Button btnAggiungi = findViewById(R.id.btnAggiungi);
         btnAggiungi.setOnClickListener(v -> {
             Intent intent = new Intent(MainActivity.this, AddEntryActivity.class);
             startActivity(intent);
         });
+        recyclerView = findViewById(R.id.recyclerView);
+        db = AppDatabase.getInstance(getApplicationContext());
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        };
+
+        @Override
+        protected void onResume(){
+            super.onResume();
+
+            new Thread(() -> {
+                List<WeekEntry> lista = db.weekEntryDao().getAllEntries();
+
+                runOnUiThread(() -> {
+                    WeekAdapter adapter = new WeekAdapter(lista);
+                    recyclerView.setAdapter(adapter);
+                });
+
+
+            }).start();
+
+        }
+
+
+
     }
-}

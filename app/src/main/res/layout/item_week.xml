@@ -5,6 +5,12 @@
     android:orientation="horizontal"
     android:padding="8dp">
 
+    <ImageView
+        android:id="@+id/ivFoto"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:scaleType="centerCrop" />
+
     <TextView
         android:id="@+id/tvData"
         android:layout_width="wrap_content"

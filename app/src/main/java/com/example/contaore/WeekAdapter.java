@@ -1,9 +1,12 @@
 package com.example.contaore;
 
 import androidx.recyclerview.widget.RecyclerView;
+
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 import java.util.List;
 
@@ -41,16 +44,21 @@ public class WeekAdapter extends RecyclerView.Adapter<WeekAdapter.ViewHolder>{
         WeekEntry entry = lista.get(position);
         holder.tvData.setText(entry.getData());
         holder.tvOre.setText(entry.getOre() + " ore");
+        String percorso = entry.getPercorsoImmagine();
+        Uri uri = Uri.parse(percorso);
+        holder.ivFoto.setImageURI(uri);
 
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder {
         TextView tvData, tvOre;
+        ImageView ivFoto;
 
         public ViewHolder(View itemView) {
             super(itemView);
             tvData = itemView.findViewById(R.id.tvData);
             tvOre = itemView.findViewById(R.id.tvOre);
+            ivFoto = itemView.findViewById(R.id.ivFoto);
         }
     }
 
