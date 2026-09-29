@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.widget.Button;
 
 import androidx.activity.EdgeToEdge;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
@@ -55,10 +56,17 @@ public class MainActivity extends AppCompatActivity {
 
             runOnUiThread(() -> {
                 WeekAdapter adapter = new WeekAdapter(lista, entry -> {
-                    new Thread(() -> {
-                        db.weekEntryDao().cancella(entry);
-                        caricaLista();
-                    }).start();
+                    AlertDialog.Builder alert = new AlertDialog.Builder(this);
+                    alert.setTitle("ALLERTAA");
+                    alert.setMessage("SEI SICURO DI VOLERLO ELIMINARE??");
+                    alert.setPositiveButton("ELIMINA", (dialog, which)->{
+                        new Thread(() -> {
+                            db.weekEntryDao().cancella(entry);
+                            caricaLista();
+                        }).start();
+                    });
+                    alert.setNegativeButton("ANNULLA",null );
+                    alert.show();
                 });
                 recyclerView.setAdapter(adapter);
             });
