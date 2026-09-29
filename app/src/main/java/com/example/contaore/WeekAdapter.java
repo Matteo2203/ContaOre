@@ -15,10 +15,12 @@ import com.example.contaore.data.WeekEntry;
 public class WeekAdapter extends RecyclerView.Adapter<WeekAdapter.ViewHolder>{
 
     private List<WeekEntry> lista;
+    private OnEliminaListener listener;
 
     //costruttore
-    WeekAdapter(List<WeekEntry> lista){
+    WeekAdapter(List<WeekEntry> lista,OnEliminaListener listener){
         this.lista = lista;
+        this.listener = listener;
     }
 
     //RecyclerView
@@ -47,7 +49,15 @@ public class WeekAdapter extends RecyclerView.Adapter<WeekAdapter.ViewHolder>{
         String percorso = entry.getPercorsoImmagine();
         Uri uri = Uri.parse(percorso);
         holder.ivFoto.setImageURI(uri);
+        holder.itemView.setOnLongClickListener(v -> {
+            listener.onElimina(entry);
+            return true;
+        });
 
+    }
+
+    public interface OnEliminaListener {
+        void onElimina(WeekEntry entry);
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder {

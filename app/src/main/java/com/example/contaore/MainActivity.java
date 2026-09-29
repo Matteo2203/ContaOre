@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.contaore.data.AppDatabase;
 import com.example.contaore.data.WeekEntry;
+
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
@@ -39,25 +40,30 @@ public class MainActivity extends AppCompatActivity {
         recyclerView = findViewById(R.id.recyclerView);
         db = AppDatabase.getInstance(getApplicationContext());
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        };
+    }
 
-        @Override
-        protected void onResume(){
-            super.onResume();
-
-            new Thread(() -> {
-                List<WeekEntry> lista = db.weekEntryDao().getAllEntries();
-
-                runOnUiThread(() -> {
-                    WeekAdapter adapter = new WeekAdapter(lista);
-                    recyclerView.setAdapter(adapter);
-                });
-
-
-            }).start();
-
-        }
-
-
+    @Override
+    protected void onResume() {
+        super.onResume();
+        caricaLista();
 
     }
+
+    void caricaLista() {
+        new Thread(() -> {
+            List<WeekEntry> lista = db.weekEntryDao().getAllEntries();
+
+            runOnUiThread(() -> {
+                WeekAdapter adapter = new WeekAdapter(lista, entry -> {
+                    new Thread(() -> {
+                        db.weekEntryDao().cancella(entry);
+                        caricaLista();
+                    }).start();
+                });
+                recyclerView.setAdapter(adapter);
+            });
+        }).start();
+    }
+
+
+}
