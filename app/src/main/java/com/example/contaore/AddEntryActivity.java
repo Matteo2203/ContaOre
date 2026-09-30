@@ -1,10 +1,12 @@
 package com.example.contaore;
 
+import android.app.DatePickerDialog;
 import android.net.Uri;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
@@ -25,9 +27,11 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.Calendar;
 
 public class AddEntryActivity extends AppCompatActivity {
 
+    String dataScelta= "";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,6 +53,22 @@ public class AddEntryActivity extends AppCompatActivity {
 
         Button btnSave = findViewById(R.id.btnSave);
         EditText etOre = findViewById(R.id.etOre);
+        Button btnData = findViewById(R.id.btnData);
+        TextView tvDataScelta = findViewById(R.id.tvDataScelta);
+        btnData.setOnClickListener(v->{
+            Calendar i = Calendar.getInstance();
+            int year = i.get(Calendar.YEAR);
+            int month = i.get(Calendar.MONTH);
+            int day = i.get(Calendar.DAY_OF_MONTH);
+
+            DatePickerDialog dialogData = new DatePickerDialog(AddEntryActivity.this, (p1,annoScelto,meseScelto,giornoScelto) ->{
+                dataScelta =  giornoScelto + "/" + (meseScelto + 1) + "/" + annoScelto;
+                tvDataScelta.setText("...");
+            }, (year), (month) , (day));
+
+            dialogData.show();
+
+        });
 
         btnSave.setOnClickListener(v -> {
             String testoOre = etOre.getText().toString();
