@@ -66,7 +66,8 @@ public class AddEntryActivity extends AppCompatActivity {
                 tvDataScelta.setText("...");
             }, (year), (month) , (day));
 
-            dialogData.show();
+                dialogData.show();
+
 
         });
 
@@ -82,6 +83,11 @@ public class AddEntryActivity extends AppCompatActivity {
                 Toast.makeText(contesto, "INSERISCI L'IMMAGINE", Toast.LENGTH_SHORT).show();
                 return;
             }
+            if(dataScelta.isEmpty()){
+                AddEntryActivity contesto = AddEntryActivity.this;
+                Toast.makeText(contesto, "INSERISCI LA DATA", Toast.LENGTH_SHORT).show();
+                return;
+            }
 
             double ore = 0;
             try {
@@ -94,7 +100,7 @@ public class AddEntryActivity extends AppCompatActivity {
             }
             WeekEntry i = new WeekEntry();
             i.setOre(ore);
-            i.setData("da definire");
+            i.setData(dataScelta);
 
             Thread t = new Thread(() ->{
                 File destinazione = null;
