@@ -62,7 +62,7 @@ public class AddEntryActivity extends AppCompatActivity {
             int day = i.get(Calendar.DAY_OF_MONTH);
 
             DatePickerDialog dialogData = new DatePickerDialog(AddEntryActivity.this, (p1,annoScelto,meseScelto,giornoScelto) ->{
-                dataScelta =  giornoScelto + "/" + (meseScelto + 1) + "/" + annoScelto;
+                dataScelta = String.format("%d-%02d-%02d", annoScelto, (meseScelto + 1), giornoScelto);
                 tvDataScelta.setText("...");
             }, (year), (month) , (day));
 

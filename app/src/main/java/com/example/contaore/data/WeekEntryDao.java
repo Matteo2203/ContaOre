@@ -17,7 +17,7 @@ public interface WeekEntryDao {
     @Delete
     void cancella(WeekEntry delete);
 
-    @Query("SELECT * FROM week_entries")
+    @Query("SELECT * FROM week_entries ORDER BY data DESC")
     List<WeekEntry> getAllEntries();
 
 
