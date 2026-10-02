@@ -67,6 +67,10 @@ public class MainActivity extends AppCompatActivity {
                     });
                     alert.setNegativeButton("ANNULLA",null );
                     alert.show();
+                },entry->{
+                    Intent intent = new Intent(MainActivity.this, FotoActivity.class);
+                    intent.putExtra("etichetta", entry.getPercorsoImmagine());
+                    startActivity(intent);
                 });
                 recyclerView.setAdapter(adapter);
             });

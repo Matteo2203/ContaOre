@@ -16,11 +16,13 @@ public class WeekAdapter extends RecyclerView.Adapter<WeekAdapter.ViewHolder>{
 
     private List<WeekEntry> lista;
     private OnEliminaListener listener;
+    private OnClickFoto click;
 
     //costruttore
-    WeekAdapter(List<WeekEntry> lista,OnEliminaListener listener){
+    WeekAdapter(List<WeekEntry> lista,OnEliminaListener listener,OnClickFoto click){
         this.lista = lista;
         this.listener = listener;
+        this.click = click;
     }
 
     //RecyclerView
@@ -53,11 +55,21 @@ public class WeekAdapter extends RecyclerView.Adapter<WeekAdapter.ViewHolder>{
             listener.onElimina(entry);
             return true;
         });
+        holder.itemView.setOnClickListener(v->{
+            click.onClick(entry);
+        });
 
     }
 
     public interface OnEliminaListener {
         void onElimina(WeekEntry entry);
+    }
+
+    public interface OnClickFoto{
+
+
+        void onClick(WeekEntry entry);
+
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder {
