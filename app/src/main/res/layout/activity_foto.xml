@@ -8,7 +8,7 @@
     android:background="#000000"
     tools:context=".FotoActivity">
 
-    <ImageView
+    <com.github.chrisbanes.photoview.PhotoView
         android:id="@+id/imageFoto"
         android:layout_width="0dp"
         android:layout_height="0dp"
