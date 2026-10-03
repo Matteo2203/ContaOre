@@ -8,11 +8,11 @@ Progetto personale nato come esercizio di sviluppo Android: gli orari arrivano o
 
 ## Screenshot
 
-<img src="screenshots/lista.png" alt="Lista delle settimane" width="260"> <img src="screenshots/aggiungi.png" alt="Aggiunta di una settimana" width="260">
+<img src="screenshot/lista.png" alt="Lista delle settimane" width="260"> <img src="screenshot/aggiungi.png" alt="Aggiunta di una settimana" width="260">
 
-<!-- Quando hai lo screenshot della foto a schermo intero, salvalo come screenshots/foto.png e togli i marcatori di commento qui sotto.
+<!-- Quando hai lo screenshot della foto a schermo intero, salvalo come screenshot/foto.png e togli i marcatori di commento qui sotto.
 
-<img src="screenshots/foto.png" alt="Foto a schermo intero" width="260">
+<img src="screenshot/foto.png" alt="Foto a schermo intero" width="260">
 
 -->
 
