@@ -2,4 +2,9 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="pixel_sfondo">#1A1C2C</color>
+    <color name="pixel_pannello">#333C57</color>
+    <color name="pixel_testo">#F4F4F4</color>
+    <color name="pixel_giallo">#FFCD75</color>
+    <color name="pixel_verde">#38B764</color>
 </resources>

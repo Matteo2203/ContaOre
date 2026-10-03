@@ -1,9 +1,18 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Base.Theme.ContaOre" parent="Theme.Material3.DayNight.NoActionBar">
-        <!-- Customize your light theme here. -->
-        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+    <style name="Base.Theme.ContaOre" parent="Theme.Material3.Dark.NoActionBar">
+        <item name="android:fontFamily">@font/press_start_2p</item>
+        <item name="android:windowBackground">@color/pixel_sfondo</item>
+        <item name="colorPrimary">@color/pixel_giallo</item>
+        <item name="colorOnPrimary">@color/pixel_sfondo</item>
+        <item name="materialButtonStyle">@style/Widget.ContaOre.Button</item>
     </style>
 
     <style name="Theme.ContaOre" parent="Base.Theme.ContaOre" />
+
+    <style name="Widget.ContaOre.Button" parent="Widget.Material3.Button">
+        <item name="cornerRadius">0dp</item>
+        <item name="strokeWidth">3dp</item>
+        <item name="strokeColor">@color/pixel_testo</item>
+    </style>
 </resources>

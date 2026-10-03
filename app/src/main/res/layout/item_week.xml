@@ -1,27 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="horizontal"
-    android:padding="8dp">
+    android:layout_marginStart="12dp"
+    android:layout_marginTop="8dp"
+    android:layout_marginEnd="12dp"
+    android:background="@drawable/bg_scheda"
+    android:padding="10dp">
 
     <ImageView
         android:id="@+id/ivFoto"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-        android:scaleType="centerCrop" />
+        android:layout_width="72dp"
+        android:layout_height="72dp"
+        android:scaleType="centerCrop"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/tvData"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="22/09/2026" />
+        android:layout_marginStart="12dp"
+        android:textColor="@color/pixel_giallo"
+        android:textSize="10sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/ivFoto"
+        app:layout_constraintTop_toTopOf="@id/ivFoto" />
 
     <TextView
         android:id="@+id/tvOre"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:text="20 ore" />
-
-</LinearLayout>
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="8dp"
+        android:textColor="@color/pixel_verde"
+        android:textSize="10sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/ivFoto"
+        app:layout_constraintTop_toBottomOf="@id/tvData" />
+</androidx.constraintlayout.widget.ConstraintLayout>
