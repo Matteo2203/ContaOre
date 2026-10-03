@@ -60,10 +60,17 @@ public class AddEntryActivity extends AppCompatActivity {
             int year = i.get(Calendar.YEAR);
             int month = i.get(Calendar.MONTH);
             int day = i.get(Calendar.DAY_OF_MONTH);
+            Calendar x = Calendar.getInstance();
 
             DatePickerDialog dialogData = new DatePickerDialog(AddEntryActivity.this, (p1,annoScelto,meseScelto,giornoScelto) ->{
+                x.set(annoScelto,meseScelto ,giornoScelto);
+                int giornoSettimana = x.get(Calendar.DAY_OF_WEEK);
+                if(giornoSettimana != Calendar.MONDAY){
+                    Toast.makeText(AddEntryActivity.this, "SCEGLI UN LUNEDI!",Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 dataScelta = String.format("%d-%02d-%02d", annoScelto, (meseScelto + 1), giornoScelto);
-                tvDataScelta.setText("...");
+                tvDataScelta.setText(dataScelta);
             }, (year), (month) , (day));
 
                 dialogData.show();
