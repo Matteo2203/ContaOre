@@ -18,6 +18,8 @@ public class WeekAdapter extends RecyclerView.Adapter<WeekAdapter.ViewHolder>{
     private OnEliminaListener listener;
     private OnClickFoto click;
 
+    private String[] mesi = {"GENNAIO","FEBBRAIO","MARZO","APRILE","MAGGIO","GIUGNO","LUGLIO","AGOSTO","SETTEMBRE","OTTOBRE","NOVEMBRE","DICEMBRE"};
+
     //costruttore
     WeekAdapter(List<WeekEntry> lista,OnEliminaListener listener,OnClickFoto click){
         this.lista = lista;
@@ -46,7 +48,7 @@ public class WeekAdapter extends RecyclerView.Adapter<WeekAdapter.ViewHolder>{
     @Override
     public void onBindViewHolder(ViewHolder holder, int position){
         WeekEntry entry = lista.get(position);
-        holder.tvData.setText(entry.getData());
+        //holder.tvData.setText(entry.getData());
         holder.tvOre.setText(entry.getOre() + " ore");
         String percorso = entry.getPercorsoImmagine();
         Uri uri = Uri.parse(percorso);
@@ -59,6 +61,12 @@ public class WeekAdapter extends RecyclerView.Adapter<WeekAdapter.ViewHolder>{
             click.onClick(entry);
         });
 
+        String[] split = entry.getData().split("-");
+        int mese = Integer.parseInt(split[1]);
+        int giorno = Integer.parseInt(split[2]);
+        int nWeek = (giorno -1 )/7 + 1 ;
+        String titolo = " " + nWeek+ "° settimana di " + mesi[mese -1 ];
+        holder.tvData.setText(titolo);
     }
 
     public interface OnEliminaListener {
