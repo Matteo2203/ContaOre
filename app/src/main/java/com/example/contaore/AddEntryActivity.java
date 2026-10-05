@@ -1,5 +1,6 @@
 package com.example.contaore;
 
+import static java.lang.Integer.parseInt;
 import static kotlin.reflect.KClasses.cast;
 
 import android.app.DatePickerDialog;
@@ -98,9 +99,30 @@ public class AddEntryActivity extends AppCompatActivity {
                 return;
             }
 
-            double ore = 0;
+            int ore = 0;
+            int minuti = 0;
+            int minutiTotali ;
             try {
-                ore = Double.parseDouble(testoOre);
+                testoOre = testoOre.replace(',' , '.');
+                String[] pezzi = testoOre.split("\\.");
+                if(pezzi.length > 2 ) {
+                    Toast.makeText(AddEntryActivity.this ,"ORE NON VALIDE " , Toast.LENGTH_SHORT ).show();
+                    return;
+                }
+                ore = Integer.parseInt(pezzi[0]);
+                if(pezzi.length == 2 ){
+                    if(pezzi[1].length() != 2){
+                        Toast.makeText(AddEntryActivity.this ,"ORE NON VALIDE " , Toast.LENGTH_SHORT ).show();
+                        return;
+                    }
+                    minuti = Integer.parseInt(pezzi[1]);
+                    if (minuti >= 60 ){
+                        Toast.makeText(AddEntryActivity.this ,"ORE NON VALIDE " , Toast.LENGTH_SHORT ).show();
+                        return;
+                    }
+
+                }
+                minutiTotali = ore * 60 + minuti ;
             } catch (NumberFormatException e) {
                 AddEntryActivity contesto = AddEntryActivity.this;
                 Toast.makeText(contesto, "ORE NON VALIDE", Toast.LENGTH_SHORT).show();
@@ -108,7 +130,7 @@ public class AddEntryActivity extends AppCompatActivity {
 
             }
             WeekEntry i = new WeekEntry();
-            i.setMinutiTotali( (int) Math.round( ore * 60 ) );
+            i.setMinutiTotali(minutiTotali );
             i.setData(dataScelta);
 
             Thread t = new Thread(() ->{
