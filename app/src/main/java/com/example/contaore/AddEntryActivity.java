@@ -1,5 +1,7 @@
 package com.example.contaore;
 
+import static kotlin.reflect.KClasses.cast;
+
 import android.app.DatePickerDialog;
 import android.net.Uri;
 import android.os.Bundle;
@@ -106,7 +108,7 @@ public class AddEntryActivity extends AppCompatActivity {
 
             }
             WeekEntry i = new WeekEntry();
-            i.setOre(ore);
+            i.setMinutiTotali( (int) Math.round( ore * 60 ) );
             i.setData(dataScelta);
 
             Thread t = new Thread(() ->{

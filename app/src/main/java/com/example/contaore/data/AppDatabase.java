@@ -6,7 +6,7 @@ import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
 
-@Database(entities = {WeekEntry.class}, version = 1 )
+@Database(entities = {WeekEntry.class}, version = 2 )
 public abstract class AppDatabase extends RoomDatabase {
 
     public abstract  WeekEntryDao weekEntryDao();
@@ -14,7 +14,7 @@ public abstract class AppDatabase extends RoomDatabase {
 
     public static AppDatabase getInstance(Context context){
         if(i == null)
-            i = Room.databaseBuilder(context, AppDatabase.class , "orari").build();
+            i = Room.databaseBuilder(context, AppDatabase.class , "orari").fallbackToDestructiveMigration().build();
 
         return i;
 

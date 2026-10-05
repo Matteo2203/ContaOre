@@ -49,7 +49,11 @@ public class WeekAdapter extends RecyclerView.Adapter<WeekAdapter.ViewHolder>{
     public void onBindViewHolder(ViewHolder holder, int position){
         WeekEntry entry = lista.get(position);
         //holder.tvData.setText(entry.getData());
-        holder.tvOre.setText(entry.getOre() + " ore");
+        int minuti = entry.getMinutiTotali() % 60;
+        int ore = entry.getMinutiTotali() / 60;
+        String s = String.format("%d.%02d", ore , minuti );
+
+        holder.tvOre.setText(s + " ore");
         String percorso = entry.getPercorsoImmagine();
         Uri uri = Uri.parse(percorso);
         holder.ivFoto.setImageURI(uri);

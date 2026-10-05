@@ -7,8 +7,17 @@ public class WeekEntry {
     @PrimaryKey (autoGenerate = true)
     int id;
     String data = "";
-    double ore;
+    int minutiTotali;
     String percorsoImmagine = "";
+    int minutiSecondoMese;
+
+    public int getMinutiSecondoMese() {
+        return minutiSecondoMese;
+    }
+
+    public void setMinutiSecondoMese(int minutiSecondoMese) {
+        this.minutiSecondoMese = minutiSecondoMese;
+    }
 
     public void setId(int id) {
         this.id = id;
@@ -18,8 +27,8 @@ public class WeekEntry {
         this.data = data;
     }
 
-    public void setOre(double ore) {
-        this.ore = ore;
+    public void setMinutiTotali(int minutiTotali) {
+        this.minutiTotali = minutiTotali;
     }
 
     public void setPercorsoImmagine(String percorsoImmagine) {
@@ -34,8 +43,8 @@ public class WeekEntry {
         return data;
     }
 
-    public double getOre() {
-        return ore;
+    public int getMinutiTotali() {
+        return minutiTotali;
     }
 
     public String getPercorsoImmagine() {
