@@ -6,6 +6,7 @@ import static kotlin.reflect.KClasses.cast;
 import android.app.DatePickerDialog;
 import android.net.Uri;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -58,6 +59,7 @@ public class AddEntryActivity extends AppCompatActivity {
         EditText etOre = findViewById(R.id.etOre);
         Button btnData = findViewById(R.id.btnData);
         TextView tvDataScelta = findViewById(R.id.tvDataScelta);
+        EditText etOreDue = findViewById(R.id.etOreSecondoMese);
         btnData.setOnClickListener(v->{
             Calendar i = Calendar.getInstance();
             int year = i.get(Calendar.YEAR);
@@ -74,6 +76,15 @@ public class AddEntryActivity extends AppCompatActivity {
                 }
                 dataScelta = String.format("%d-%02d-%02d", annoScelto, (meseScelto + 1), giornoScelto);
                 tvDataScelta.setText(dataScelta);
+                int mese = x.get(Calendar.MONTH);
+                x.add(Calendar.DAY_OF_MONTH, 6);
+                int meseFine = x.get(Calendar.MONTH);
+                if(mese != meseFine){
+                    etOreDue.setVisibility(View.VISIBLE);
+                }else
+                    etOreDue.setVisibility(View.GONE);
+
+
             }, (year), (month) , (day));
 
                 dialogData.show();
