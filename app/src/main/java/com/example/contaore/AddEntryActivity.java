@@ -110,36 +110,11 @@ public class AddEntryActivity extends AppCompatActivity {
                 return;
             }
 
-            int ore = 0;
-            int minuti = 0;
-            int minutiTotali ;
-            try {
-                testoOre = testoOre.replace(',' , '.');
-                String[] pezzi = testoOre.split("\\.");
-                if(pezzi.length > 2 ) {
-                    Toast.makeText(AddEntryActivity.this ,"ORE NON VALIDE " , Toast.LENGTH_SHORT ).show();
-                    return;
-                }
-                ore = Integer.parseInt(pezzi[0]);
-                if(pezzi.length == 2 ){
-                    if(pezzi[1].length() != 2){
-                        Toast.makeText(AddEntryActivity.this ,"ORE NON VALIDE " , Toast.LENGTH_SHORT ).show();
-                        return;
-                    }
-                    minuti = Integer.parseInt(pezzi[1]);
-                    if (minuti >= 60 ){
-                        Toast.makeText(AddEntryActivity.this ,"ORE NON VALIDE " , Toast.LENGTH_SHORT ).show();
-                        return;
-                    }
 
-                }
-                minutiTotali = ore * 60 + minuti ;
-            } catch (NumberFormatException e) {
-                AddEntryActivity contesto = AddEntryActivity.this;
-                Toast.makeText(contesto, "ORE NON VALIDE", Toast.LENGTH_SHORT).show();
+            int minutiTotali =convertiInMinuti(testoOre);
+            if(minutiTotali < 0)
                 return;
 
-            }
             WeekEntry i = new WeekEntry();
             i.setMinutiTotali(minutiTotali );
             i.setData(dataScelta);
@@ -187,4 +162,38 @@ public class AddEntryActivity extends AppCompatActivity {
                     immagineSelezionata = uri;
                 }
             });
+
+    int convertiInMinuti(String testo) {
+        int ore = 0;
+        int minuti = 0;
+        try {
+            testo = testo.replace(',', '.');
+            String[] pezzi = testo.split("\\.");
+            if (pezzi.length > 2) {
+                Toast.makeText(AddEntryActivity.this, "ORE NON VALIDE ", Toast.LENGTH_SHORT).show();
+                return -1 ;
+            }
+            ore = Integer.parseInt(pezzi[0]);
+            if (pezzi.length == 2) {
+                if (pezzi[1].length() != 2) {
+                    Toast.makeText(AddEntryActivity.this, "ORE NON VALIDE ", Toast.LENGTH_SHORT).show();
+                    return -1;
+                }
+                minuti = Integer.parseInt(pezzi[1]);
+                if (minuti >= 60) {
+                    Toast.makeText(AddEntryActivity.this, "ORE NON VALIDE ", Toast.LENGTH_SHORT).show();
+                    return - 1 ;
+                }
+
+            }
+            return ore * 60 + minuti;
+        } catch (NumberFormatException e) {
+            AddEntryActivity contesto = AddEntryActivity.this;
+            Toast.makeText(contesto, "ORE NON VALIDE", Toast.LENGTH_SHORT).show();
+            return -1 ;
+
+
+        }
+    }
+
 }
