@@ -29,6 +29,9 @@
             android:name=".FotoActivity"
             android:exported="false"
             android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name=".RiepilogoActivity"
+            android:exported="false" />
 
         <meta-data
             android:name="preloaded_fonts"

@@ -2,7 +2,6 @@ package com.example.contaore;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.Button;
 
 import androidx.activity.EdgeToEdge;
@@ -15,7 +14,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.contaore.data.AppDatabase;
-import com.example.contaore.data.RiepilogoMese;
 import com.example.contaore.data.WeekEntry;
 
 import java.util.List;
@@ -40,6 +38,11 @@ public class MainActivity extends AppCompatActivity {
             Intent intent = new Intent(MainActivity.this, AddEntryActivity.class);
             startActivity(intent);
         });
+        Button btnRiepilogo = findViewById(R.id.btnRiepilogo);
+        btnRiepilogo.setOnClickListener(v -> {
+            Intent intent = new Intent(MainActivity.this, RiepilogoActivity.class);
+            startActivity(intent);
+        });
         recyclerView = findViewById(R.id.recyclerView);
         db = AppDatabase.getInstance(getApplicationContext());
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -55,15 +58,12 @@ public class MainActivity extends AppCompatActivity {
     void caricaLista() {
         new Thread(() -> {
             List<WeekEntry> lista = db.weekEntryDao().getAllEntries();
-            List<RiepilogoMese> riepilogo = db.weekEntryDao().getRiepilogoMensile();
-            for (RiepilogoMese r : riepilogo) {
-                Log.d("RIEPILOGO", r.getMese() + " " + r.getMinuti());
-            }
+
 
             runOnUiThread(() -> {
                 WeekAdapter adapter = new WeekAdapter(lista, entry -> {
                     AlertDialog.Builder alert = new AlertDialog.Builder(this);
-                    alert.setTitle("ALLERTAA");
+                    alert.setTitle("ALLERTA");
                     alert.setMessage("SEI SICURO DI VOLERLO ELIMINARE??");
                     alert.setPositiveButton("ELIMINA", (dialog, which)->{
                         new Thread(() -> {
